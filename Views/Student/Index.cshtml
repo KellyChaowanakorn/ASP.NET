@@ -1,0 +1,51 @@
+﻿@model IEnumerable<BasicASPTutorial.Models.Student>;
+
+@{
+    ViewData["Title"] = "หน้าแรก";
+}
+
+
+ @if (Model.Count()>0)
+{
+    <h1 class="text-center">หน้าแรกของเว็บไซด์</h1>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>รหัสนักเรียน</th>
+                <th>ชื่อนักเรียน</th>
+                <th>คะแนนสอบ</th>
+                <th>แก้ไข</th>
+                <th>ลบ</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>@student.Id</td>
+                    <td>@student.Name</td>
+                    <td>@student.Score</td>
+                    <td>
+                        <a class="btn btn-warning"
+                   asp-controller="Student"
+                   asp-action="Edit"
+                   asp-route-id="@student.Id">Edit</a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger"
+                   asp-controller="Student"
+                   asp-action="Delete"
+                   asp-route-id="@student.Id"
+                           onclick="return confirm ('Confirm delete @student.Name ?')">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+}
+else
+{
+    <div class="alert alert-secondary">There is no student data in DB</div>
+}
